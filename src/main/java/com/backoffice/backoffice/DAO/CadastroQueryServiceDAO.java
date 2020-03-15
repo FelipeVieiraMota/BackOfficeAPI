@@ -66,7 +66,7 @@ public class CadastroQueryServiceDAO {
                 str.append(" where tb_core_person.cpf_cnpj = ? and tb_core_person.cd_person_type = ? ");
             }break;
             default:{
-                //str.append(" where tb_core_person.cd_person_type = ? order by id_person desc limit 200");
+                str.append(" where tb_core_person.cd_person_type = ? order by id_person desc limit 200");
             }
         }
         return str.toString();
@@ -79,7 +79,7 @@ public class CadastroQueryServiceDAO {
                 ps.setString(1,cpf_cnpj);
                 ps.setString(2,cd_person_type);
             } default:{
-                //ps.setString(++i,cd_person_type);
+                ps.setString(++i,cd_person_type);
             }
         }
         return ps;

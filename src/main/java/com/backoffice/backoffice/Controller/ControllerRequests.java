@@ -44,16 +44,18 @@ public class ControllerRequests {
     }
 
     @GetMapping(value = "/students")
-    public ResponseEntity<ArrayList<Student>> getAllStudents () throws NullPointerException {
+    public ResponseEntity<ResponseStatus> getAllStudents () throws NullPointerException {
         Services service = new Services();
         ArrayList<Student> arrayOfStudents = service.getAllStudents();
-
         Integer sizeOfArray = arrayOfStudents.size();
-
-        if( sizeOfArray == 0 )
-            return new ResponseEntity<ArrayList<Student>>(arrayOfStudents,HttpStatus.NO_CONTENT);
-        else
-            return new ResponseEntity<ArrayList<Student>>(arrayOfStudents,HttpStatus.OK);
+        ResponseStatus response = null;
+        if( sizeOfArray == 0 ){
+            response = ResponseObject.getResponseObject(arrayOfStudents, true, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<ResponseStatus>(response,HttpStatus.NO_CONTENT);
+        } else{
+            response = ResponseObject.getResponseObject(arrayOfStudents, true, HttpStatus.OK);
+            return new ResponseEntity<ResponseStatus>(response,HttpStatus.OK);
+        }
     }
 
     @GetMapping(value = "/student/{cpf_cnpj}")
@@ -66,8 +68,7 @@ public class ControllerRequests {
         if( sizeOfArray == 0 ){
             response = ResponseObject.getResponseObject(arrayOfStudent, true, HttpStatus.NO_CONTENT);
             return new ResponseEntity<ResponseStatus>(response,HttpStatus.NO_CONTENT);
-        }
-        else{
+        } else{
             response = ResponseObject.getResponseObject(arrayOfStudent, true, HttpStatus.OK);
             return new ResponseEntity<ResponseStatus>(response,HttpStatus.OK);
         }
