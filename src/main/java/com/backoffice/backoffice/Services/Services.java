@@ -37,14 +37,14 @@ public class Services {
     public ArrayList<Student> getAllStudents() throws NullPointerException {
         ArrayList<Student> arrayOfStudents;
         CadastroQueryServiceDAO dao = new CadastroQueryServiceDAO();
-        arrayOfStudents = dao.getStudentDAO("","allStudents");
+        arrayOfStudents = dao.getPersonDAO("","student","allPeople");
         return arrayOfStudents;
     }
 
     public ArrayList<Student> getStudent(String cpf_cnpj) throws NullPointerException {
         ArrayList<Student> arrayOfStudent;
         CadastroQueryServiceDAO dao = new CadastroQueryServiceDAO();
-        arrayOfStudent = dao.getStudentDAO(cpf_cnpj,"student");
+        arrayOfStudent = dao.getPersonDAO(cpf_cnpj,"student","singlePerson");
         return arrayOfStudent;
     }
 }

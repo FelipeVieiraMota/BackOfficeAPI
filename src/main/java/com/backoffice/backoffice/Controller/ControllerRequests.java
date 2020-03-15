@@ -1,7 +1,10 @@
 package com.backoffice.backoffice.Controller;
 
 import com.backoffice.backoffice.Services.Services;
+import com.backoffice.backoffice.VO.ResponseStatus;
 import com.backoffice.backoffice.VO.Student;
+
+import com.backoffice.backoffice.utils.ResponseObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -54,15 +57,19 @@ public class ControllerRequests {
     }
 
     @GetMapping(value = "/student/{cpf_cnpj}")
-    public ResponseEntity<ArrayList<Student>> getStudent (@PathVariable("cpf_cnpj") String cpf_cnpj) throws NullPointerException {
+    public ResponseEntity<ResponseStatus> getStudent (@PathVariable("cpf_cnpj") String cpf_cnpj) throws NullPointerException {
         Services service = new Services();
         ArrayList<Student> arrayOfStudent = service.getStudent(cpf_cnpj);
-
         Integer sizeOfArray = arrayOfStudent.size();
+        ResponseStatus response = null;
 
-        if( sizeOfArray == 0 )
-            return new ResponseEntity<ArrayList<Student>>(arrayOfStudent,HttpStatus.NO_CONTENT);
-        else
-            return new ResponseEntity<ArrayList<Student>>(arrayOfStudent,HttpStatus.OK);
+        if( sizeOfArray == 0 ){
+            response = ResponseObject.getResponseObject(arrayOfStudent, true, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<ResponseStatus>(response,HttpStatus.NO_CONTENT);
+        }
+        else{
+            response = ResponseObject.getResponseObject(arrayOfStudent, true, HttpStatus.OK);
+            return new ResponseEntity<ResponseStatus>(response,HttpStatus.OK);
+        }
     }
 }
