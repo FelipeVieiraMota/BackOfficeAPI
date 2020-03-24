@@ -5,6 +5,7 @@ import com.backoffice.backoffice.VO.ResponseStatus;
 import com.backoffice.backoffice.VO.Student;
 
 import com.backoffice.backoffice.utils.ResponseObject;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
+@CrossOrigin
 @RestController
 public class ControllerRequests {
 
